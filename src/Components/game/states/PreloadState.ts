@@ -1,9 +1,13 @@
+import { Entity } from "../../../engine/Entity";
 import { State } from "../../../engine/State";
 import { Camera } from "../../camera";
 import { Box } from "../Player";
 
 export class PreloadState extends State {
     camera: Camera;
+    box: Entity
+    isSetScale: boolean = false
+
     constructor() {
         super()
     }
@@ -17,13 +21,21 @@ export class PreloadState extends State {
 
 
     create() {
-        const box = new Box()
-        this.addObject(box)
-        this.camera.lookAt(box.position)
+        this.box = new Box()
+        this.addObject(this.box)
+        this.camera.lookAt(this.box.position)
 
-        this.app?.on('eventTest', () => console.log('test trigger event'), this)
+        // this.app?.on('eventTest', () => console.log('test trigger event'), this)
+
+        this.app?.on('mousemove', this.moveBox, this)
 
 
+    }
+
+
+    moveBox() {
+        this.box.scale.x += .04
+        this.box.rotateX(0.2)
     }
 
     update() {

@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import { Entity } from './engine/Entity'
-import { EventSystem } from './engine/EventSystem'
+import { BasicEvents } from './engine/EventSystem/BasicEvents'
+import { EventSystem } from './engine/EventSystem/EventSystem'
 import { entityType, Factory } from './engine/Factory'
 import { Loader } from './engine/Loader'
 import { Repositoty } from './engine/Repository'
@@ -39,7 +40,9 @@ export class App {
         this.repository = new Repositoty<Entity>()
         this.statesRepo = new Repositoty<State>()
 
-        this.eventSystem = new EventSystem()
+        const basicEvents = new BasicEvents()
+        this.eventSystem = new EventSystem(basicEvents)
+
 
         this.conifg.states.forEach(state => {
             this.statesRepo.add(state)
@@ -66,10 +69,10 @@ export class App {
 
     }
 
-    on(name: string, callback: () => void, context:Object) {
+    on(name: string, callback: () => void, context: Object) {
         this.eventSystem.registerEvent(name, callback, context)
     }
-    fire(name:string){
+    fire(name: string) {
         this.eventSystem.triggeredEvent(name)
     }
 
@@ -89,7 +92,7 @@ export class App {
 
     add(entity: Entity) {
         if (!this.getScene()) return
-        console.log('add', entity)
+
         if (entity instanceof THREE.Camera) {
             this.mainCamera = entity
         }
