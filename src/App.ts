@@ -27,7 +27,7 @@ export class App {
     loader: Loader
     stateManager: StatesManager
     eventSystem: EventSystem
-    #input: any
+    input: any
 
     constructor(public conifg: IgameConfig) {
         this.renderer = this.#createRenderer()
@@ -44,7 +44,7 @@ export class App {
 
 
         this.eventSystem = new EventSystem(new BasicEvents())
-        this.#input = new Input(this.eventSystem)
+        this.input = new Input(this.eventSystem)
 
 
 

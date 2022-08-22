@@ -36,17 +36,18 @@ export class EventSystem {
     }
 
     registerEvent(name: string, callback: () => void = () => { }, context: Object = this) {
-        if (this.events.name) {
-            this.events.name.callback.push(callback.bind(context))
+        if (this.events[name]) {
+            console.log('register event', this.events.name)
+            this.events[name]?.callback.push(callback.bind(context))
             return
         }
 
-        this.events.name = { callback: [callback.bind(context)] }
+        this.events[name] = { callback: [callback.bind(context)] }
     }
 
     registerSystemEvents(systemEvent: ISystemEvent) {
         const nameInSystem = systemEvent.nameInSystem ? systemEvent.nameInSystem : systemEvent.nameInGame
-        console.log(nameInSystem)
+
         window.addEventListener(nameInSystem, () => {
 
             this.triggeredEvent(systemEvent.nameInGame)
@@ -54,9 +55,9 @@ export class EventSystem {
     }
 
     triggeredEvent(name: string) {
-        console.log('triggered name', name)
-        if (this.events.name) {
-            this.events.name.callback.forEach(callback => {
+      //  console.log('triggered name', this.events[name])
+        if (this.events[name]) {
+            this.events[name]?.callback.forEach(callback => {
                 callback()
             })
         }

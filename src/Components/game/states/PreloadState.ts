@@ -10,6 +10,7 @@ export class PreloadState extends State {
 
     constructor() {
         super()
+        
     }
 
     init() {
@@ -24,7 +25,7 @@ export class PreloadState extends State {
         this.box = new Box()
         this.addObject(this.box)
         this.camera.lookAt(this.box.position)
-
+        
         // this.app?.on('eventTest', () => console.log('test trigger event'), this)
 
 
@@ -39,6 +40,8 @@ export class PreloadState extends State {
     }
 
     update() {
-
+        if(this.app?.input.mouse.isMouseDown){
+            this.moveBox()
+        }
     }
 }
