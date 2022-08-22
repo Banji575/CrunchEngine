@@ -5,7 +5,7 @@ export interface IEvents {
 }
 
 export interface IEvent {
-    callback: { (): void }[],
+    callback: { (params:any): void }[],
 }
 
 export interface ISystemEvent {
@@ -37,7 +37,7 @@ export class EventSystem {
 
     registerEvent(name: string, callback: () => void = () => { }, context: Object = this) {
         if (this.events[name]) {
-            console.log('register event', this.events.name)
+          //  console.log('register event', this.events.name)
             this.events[name]?.callback.push(callback.bind(context))
             return
         }
@@ -48,17 +48,17 @@ export class EventSystem {
     registerSystemEvents(systemEvent: ISystemEvent) {
         const nameInSystem = systemEvent.nameInSystem ? systemEvent.nameInSystem : systemEvent.nameInGame
 
-        window.addEventListener(nameInSystem, () => {
+        window.addEventListener(nameInSystem, (evt) => {
 
-            this.triggeredEvent(systemEvent.nameInGame)
+            this.triggeredEvent(systemEvent.nameInGame, evt)
         })
     }
 
-    triggeredEvent(name: string) {
+    triggeredEvent(name: string, evt?:any) {
       //  console.log('triggered name', this.events[name])
         if (this.events[name]) {
             this.events[name]?.callback.forEach(callback => {
-                callback()
+                callback(evt)
             })
         }
     }

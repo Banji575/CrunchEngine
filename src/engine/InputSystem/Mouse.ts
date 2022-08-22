@@ -1,4 +1,6 @@
-export class Mouse {
+import { IInputDevice } from "./Input"
+
+export class Mouse implements IInputDevice {
     isMouseDown: boolean = false
     isMouseUp: boolean = false
     mouseDown: string = 'mousedown'

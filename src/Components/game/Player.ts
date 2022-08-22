@@ -12,9 +12,17 @@ export class Box extends THREE.Mesh implements Entity {
 
     create() {
         this.position.set(4.5, 0.5, 4.5)
-        
+
     }
+
+    move() {
+        const pos = this.position.clone()
+        pos.x += .1
+        this.position.set(pos.x, pos.y, pos.z)
+    }
+
     update() {
 
     }
+
 }

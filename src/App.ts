@@ -4,6 +4,8 @@ import { BasicEvents } from './engine/EventSystem/BasicEvents'
 import { EventSystem } from './engine/EventSystem/EventSystem'
 import { entityType, Factory } from './engine/Factory'
 import { Input } from './engine/InputSystem/Input'
+import { Keyboard } from './engine/InputSystem/Keyboard'
+import { Mouse } from './engine/InputSystem/Mouse'
 import { Loader } from './engine/Loader'
 import { Repositoty } from './engine/Repository'
 import { State } from './engine/State'
@@ -28,6 +30,8 @@ export class App {
     stateManager: StatesManager
     eventSystem: EventSystem
     input: any
+    mouse: Mouse
+    keyboard: Keyboard
 
     constructor(public conifg: IgameConfig) {
         this.renderer = this.#createRenderer()
@@ -44,7 +48,9 @@ export class App {
 
 
         this.eventSystem = new EventSystem(new BasicEvents())
-        this.input = new Input(this.eventSystem)
+        this.mouse = new Mouse()
+        this.keyboard = new Keyboard()
+        this.input = new Input(this.eventSystem, [this.mouse, this.keyboard])
 
 
 

@@ -5,7 +5,7 @@ import { Box } from "../Player";
 
 export class PreloadState extends State {
     camera: Camera;
-    box: Entity
+    box: Box
     isSetScale: boolean = false
 
     constructor() {
@@ -25,23 +25,13 @@ export class PreloadState extends State {
         this.box = new Box()
         this.addObject(this.box)
         this.camera.lookAt(this.box.position)
-        
-        // this.app?.on('eventTest', () => console.log('test trigger event'), this)
 
 
-
-
-    }
-
-
-    moveBox() {
-        this.box.scale.x += .04
-        this.box.rotateX(0.2)
     }
 
     update() {
-        if(this.app?.input.mouse.isMouseDown){
-            this.moveBox()
+        if(this.app?.input.keyboard.key === 'f'){
+            console.log(this.box.move())
         }
     }
 }
