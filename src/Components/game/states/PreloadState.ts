@@ -27,7 +27,7 @@ export class PreloadState extends State {
 
         // this.app?.on('eventTest', () => console.log('test trigger event'), this)
 
-        this.app?.on('mousemove', this.moveBox, this)
+
 
 
     }

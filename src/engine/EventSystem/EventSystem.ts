@@ -46,6 +46,7 @@ export class EventSystem {
 
     registerSystemEvents(systemEvent: ISystemEvent) {
         const nameInSystem = systemEvent.nameInSystem ? systemEvent.nameInSystem : systemEvent.nameInGame
+        console.log(nameInSystem)
         window.addEventListener(nameInSystem, () => {
 
             this.triggeredEvent(systemEvent.nameInGame)
@@ -53,7 +54,7 @@ export class EventSystem {
     }
 
     triggeredEvent(name: string) {
-
+        console.log('triggered name', name)
         if (this.events.name) {
             this.events.name.callback.forEach(callback => {
                 callback()

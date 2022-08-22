@@ -13,6 +13,9 @@ export class BasicEvents implements IBasicEvents {
             },
             {
                 nameInGame: 'mousemove'
+            },
+            {
+                nameInGame: 'mousedown'
             }
         ]
     }

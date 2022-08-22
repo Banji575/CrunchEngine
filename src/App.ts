@@ -3,6 +3,7 @@ import { Entity } from './engine/Entity'
 import { BasicEvents } from './engine/EventSystem/BasicEvents'
 import { EventSystem } from './engine/EventSystem/EventSystem'
 import { entityType, Factory } from './engine/Factory'
+import { Input } from './engine/InputSystem/Input'
 import { Loader } from './engine/Loader'
 import { Repositoty } from './engine/Repository'
 import { State } from './engine/State'
@@ -26,6 +27,7 @@ export class App {
     loader: Loader
     stateManager: StatesManager
     eventSystem: EventSystem
+    #input: any
 
     constructor(public conifg: IgameConfig) {
         this.renderer = this.#createRenderer()
@@ -40,8 +42,10 @@ export class App {
         this.repository = new Repositoty<Entity>()
         this.statesRepo = new Repositoty<State>()
 
-        const basicEvents = new BasicEvents()
-        this.eventSystem = new EventSystem(basicEvents)
+
+        this.eventSystem = new EventSystem(new BasicEvents())
+        this.#input = new Input(this.eventSystem)
+
 
 
         this.conifg.states.forEach(state => {
